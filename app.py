@@ -7,10 +7,10 @@ from dbhelpers import run_statement
 app = Flask(__name__)
 
 
-@app.get('api/animals')
+@app.get('/api/animals')
 def get_animals():
     keys = ["name", "legs"]
-    result = run_statement("CALL get_all_animals")
+    result = run_statement("CALL get_damn_animals")
     response = []
     if (type(result) == list):
         for animal in result:
@@ -24,9 +24,9 @@ def get_animals():
 if (production_mode == True):
     print("Running server in production mode")
     import bjoern #type:ignore
-    bjoern.run(app, "0.0.0.0", 5000)
+    bjoern.run(app, "0.0.0.0", 5001)
 else:
-    print("Running in testing mode")
     from flask_cors import CORS
     CORS(app)
+    print("Running in testing mode")
     app.run(debug=True)
